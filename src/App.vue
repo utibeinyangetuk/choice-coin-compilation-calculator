@@ -1,11 +1,16 @@
 <template>
 	<!-- choice coin logo goes here -->
 	<img alt="Vue logo" src="./assets/logo.png" />
-	<h3>{{userdata}}</h3>
 
 	<div class="container">
+		<div class="final-result">
+			<p>
+				compliance score result: <span>{{ userdata }} </span>
+			</p>
+		</div>
+
 		<div class="data">
-			<h3>Equity : {{ equity }}</h3>
+			<h3>Equity: {{ equity }}</h3>
 			<select v-model="equity">
 				<option disabled value="">Please select 1 option</option>
 				<option
@@ -19,9 +24,9 @@
 		</div>
 
 		<div class="data">
-			<h3>Decentralization : {{ decentralization }}</h3>
+			<h3>Decentralization: {{ decentralization }}</h3>
 			<select v-model="decentralization">
-					<option disabled value="">Please select 1 option</option>
+				<option disabled value="">Please select 1 option</option>
 				<option
 					v-for="detail in details"
 					:key="detail"
@@ -33,9 +38,9 @@
 		</div>
 
 		<div class="data">
-			<h3>participation : {{ participation }}</h3>
+			<h3>participation: {{ participation }}</h3>
 			<select v-model="participation">
-					<option disabled value="">Please select 1 option</option>
+				<option disabled value="">Please select 1 option</option>
 				<option
 					v-for="detail in details"
 					:key="detail"
@@ -47,9 +52,9 @@
 		</div>
 
 		<div class="data">
-			<h3>investment : {{ investment }}</h3>
+			<h3>investment: {{ investment }}</h3>
 			<select v-model="investment">
-					<option disabled value="">Please select 1 option</option>
+				<option disabled value="">Please select 1 option</option>
 				<option
 					v-for="detail in details"
 					:key="detail"
@@ -61,9 +66,9 @@
 		</div>
 
 		<div class="data">
-			<h3>utility : {{ utility }}</h3>
+			<h3>utility: {{ utility }}</h3>
 			<select v-model="utility">
-					<option disabled value="">Please select 1 option</option>
+				<option disabled value="">Please select 1 option</option>
 				<option
 					v-for="detail in details"
 					:key="detail"
@@ -75,9 +80,9 @@
 		</div>
 
 		<div class="data">
-			<h3>purpose : {{ purpose }}</h3>
+			<h3>purpose: {{ purpose }}</h3>
 			<select v-model="purpose">
-					<option disabled value="">Please select 1 option</option>
+				<option disabled value="">Please select 1 option</option>
 				<option
 					v-for="detail in details"
 					:key="detail"
@@ -89,9 +94,9 @@
 		</div>
 
 		<div class="data">
-			<h3>control : {{ control }}</h3>
+			<h3>control: {{ control }}</h3>
 			<select v-model="control">
-					<option disabled value="">Please select 1 option</option>
+				<option disabled value="">Please select 1 option</option>
 				<option
 					v-for="detail in details"
 					:key="detail"
@@ -103,9 +108,9 @@
 		</div>
 
 		<div class="data">
-			<h3>derivatives : {{ derivatives }}</h3>
+			<h3>derivatives: {{ derivatives }}</h3>
 			<select v-model="derivatives">
-					<option disabled value="">Please select 1 option</option>
+				<option disabled value="">Please select 1 option</option>
 				<option
 					v-for="detail in details"
 					:key="detail"
@@ -147,7 +152,8 @@
 						score: 0.25,
 					},
 				],
-				userdata:'',
+				userdata: null,
+				userdata2: null,
 				equity: null,
 				decentralization: null,
 				participation: null,
@@ -160,7 +166,7 @@
 		},
 		methods: {
 			calculate() {
-			const	result =
+				const result =
 					this.equity *
 					this.decentralization *
 					this.participation *
@@ -170,15 +176,32 @@
 					this.control *
 					this.derivatives;
 
-					this.userdata=result
+				this.userdata = result;
+				this.userdata2 = result ** (1 / 9);
+
+				console.log("Final result: ", this.userdata2);
+				console.log(this.equity);
+				console.log(this.decentralization);
+				console.log(this.participation);
+				console.log(this.investment);
+				console.log(this.utility);
+				console.log(this.purpose);
+				console.log(this.control);
+				console.log(this.derivatives);
 			},
 		},
 	};
 </script>
 
 <style>
+	span {
+		border: 1px solid;
+		padding: 5px;
+	}
 	img {
+		margin-left: 50%;
 		height: 60px;
+		text-align: center;
 	}
 	.container {
 		border-radius: 5px;
@@ -191,15 +214,59 @@
 		align-items: center;
 		color: #2c3e50;
 		width: 600px;
-		box-shadow: 0 2px 2px #999;
+		background-color: rgba(33, 90, 141, 0.311);
+		box-shadow: 0 1px 0 1px rgba(128, 128, 128, 0.401);
 		position: absolute;
 		left: 35%;
 	}
 
 	.data {
-		margin-bottom: 10px;
+		margin-bottom: 3px;
 		border-radius: 5px;
 		width: 300px;
 		height: 90px;
+		margin-right: 100px;
+	}
+
+	.data h3 {
+		letter-spacing: 2px;
+		font-weight: bold;
+		font-size: 15px;
+		text-transform: uppercase;
+	}
+	select {
+		border-radius: 5px;
+		width: 400px;
+		background-color: gainsboro;
+		padding: 5px;
+	}
+
+	button {
+		background-color: gainsboro;
+		border: 1px solid;
+		border-radius: 5px;
+		padding: 5px;
+		margin-bottom: 10px;
+		margin-top: 10px;
+		letter-spacing: 2px;
+		font-weight: 700;
+		text-transform: uppercase;
+		height: 50px;
+		width: 400px;
+		cursor: pointer;
+	}
+
+	.final-result {
+		width: 100%;
+		border: 1px dashed gray;
+	}
+
+	.final-result p {
+		text-transform: capitalize;
+		padding: 5px;
+		font-size: 16px;
+		letter-spacing: 2px;
+		font-weight: bolder;
+		margin-left: 70px;
 	}
 </style>
